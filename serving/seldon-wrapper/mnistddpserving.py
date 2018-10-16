@@ -14,22 +14,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 '''
-import os
-import sys
+
 import torch
 import torch.utils.data
 import torch.utils.data.distributed
-import torch.distributed as dist
 import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
-from torch._utils import _flatten_dense_tensors, _unflatten_dense_tensors
-from torch.nn.modules import Module
+import torch.nn.functional as f
+from torchvision import transforms
 
-from math import ceil
-from random import Random
-from torch.autograd import Variable
-from torchvision import datasets, transforms
 
 class Net(nn.Module):
     """ Network architecture. """
@@ -43,13 +35,13 @@ class Net(nn.Module):
         self.fc2 = nn.Linear(50, 10)
 
     def forward(self, x):
-        x = F.relu(F.max_pool2d(self.conv1(x), 2))
-        x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), 2))
+        x = f.relu(f.max_pool2d(self.conv1(x), 2))
+        x = f.relu(f.max_pool2d(self.conv2_drop(self.conv2(x)), 2))
         x = x.view(-1, 320)
-        x = F.relu(self.fc1(x))
-        x = F.dropout(x, training=self.training)
+        x = f.relu(self.fc1(x))
+        x = f.dropout(x, training=self.training)
         x = self.fc2(x)
-        return F.log_softmax(x)
+        return f.log_softmax(x)
 
 
 class mnistddpserving(object):
@@ -57,7 +49,7 @@ class mnistddpserving(object):
         self.class_names = ["class:{}".format(str(i)) for i in range(10)]
         self.model = Net()
         # TODO parametrise path to load model
-        self.model.load_state_dict(torch.load("/mnt/kubeflow-gcfs/pytorch/model/model.dat",
+        self.model.load_state_dict(torch.load("/mnt/kubeflow-fs/pytorch/model/model.dat",
                                               map_location='cpu'))
         # Ensure the model is in eval/inference mode
         self.model.eval()
