@@ -22,7 +22,7 @@
           "spec": {
             "containers": [
               {
-                "image": "gcr.io/davidsabater-petproject/mnist_serving",
+                "image": "gcr.io/kubeflow-examples/pytorch-mnist-serving",
                 "imagePullPolicy": "Always",
                 "name": "pytorch-model",
                 "volumeMounts": [
