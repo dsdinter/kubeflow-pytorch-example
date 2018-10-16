@@ -42,11 +42,8 @@ def main():
         # get a random test MNIST image
         x, y, _ = random_mnist(img_path)
         # get prediction from TensorFlow server
-        pred = get_prediction(x,
-                                           server_host=addr_arg,
-                                           server_port=int(port_arg),
-                                           deployment_name=name_arg,
-                                           timeout=10)
+        pred = get_prediction(x, server_host=addr_arg, server_port=int(port_arg),
+                              deployment_name=name_arg, timeout=10)
         # if no exceptions thrown, server connection was a success
         connection["text"] = "Connected to Seldon GRPC model serving service"
         connection["success"] = True
