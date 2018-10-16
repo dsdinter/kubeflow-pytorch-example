@@ -18,16 +18,11 @@ limitations under the License.
 
 from __future__ import print_function
 
-
-from grpc.beta import implementations
 import numpy as np
 from PIL import Image
-import requests
-from requests.auth import HTTPBasicAuth
 from proto import prediction_pb2
 from proto import prediction_pb2_grpc
 import grpc
-import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 
 
@@ -75,7 +70,7 @@ def random_mnist(save_path=None):
     Pull a random image out of the MNIST test dataset
     Optionally save the selected image as a file to disk
 
-    :param savePath: the path to save the file to. If None, file is not saved
+    :param save_path: the path to save the file to. If None, file is not saved
     :return 0: a 1x784 representation of the MNIST image
     :return 1: the ground truth label associated with the image
     :return 2: a bool representing whether the image file was saved to disk
