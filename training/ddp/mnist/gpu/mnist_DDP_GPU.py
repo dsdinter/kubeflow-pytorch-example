@@ -170,6 +170,7 @@ def run(rank, size):
     model = model.cuda()
     model = DistributedDataParallel(model)
     optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.5)
+    model_dir = "/mnt/kubeflow-gcfs/pytorch/model"
 
     num_batches = ceil(len(train_set.dataset) / float(bsz))
     print("num_batches = ", num_batches)
@@ -190,12 +191,13 @@ def run(rank, size):
     # Ensure only the master node saves the model
     main_proc = rank == 0
     if main_proc:
-        # TODO parametrise path to save model and also create directory if doesn't exist
-        # os.makedirs('/mnt/kubeflow-gcfs/pytorch/model')
-        model_path = "/mnt/kubeflow-gcfs/pytorch/model/model.dat"
+        if not os.path.exists(model_dir):
+            os.makedirs(model_dir)
+        model_path = model_dir+"/model.dat"
         print("Saving model in {}".format(model_path))
         torch.save(model.module.state_dict(), model_path)
     print("GPU training time=", datetime.datetime.now() - time_start)
+
 
 def init_print(rank, size, debug_print=True):
     if not debug_print:
