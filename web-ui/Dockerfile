@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-MAINTAINER "Daniel Sanche"
+MAINTAINER "David Sabater"
 
 # add TF dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
