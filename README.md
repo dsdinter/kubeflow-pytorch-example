@@ -11,7 +11,7 @@ tutorial is based upon the below projects:
 There are two primary goals for this tutorial:
 
 *   Demonstrate an End-to-End kubeflow example
-*   Present an End-to-End Distributed Pytorch model
+*   Present an End-to-End Pytorch model
 
 By the end of this tutorial, you should learn how to:
 
@@ -29,3 +29,10 @@ By the end of this tutorial, you should learn how to:
 1.  [Serving the model](03_serving_the_model.md)
 1.  [Querying the model](04_querying_the_model.md)
 1.  [Teardown](05_teardown.md)
+
+#TODO
+- [ ] 01_setup_a_kubeflow_cluster
+- [ ] 02_distributed_training
+- [ ] 03_serving_the_model
+- [ ] 04_querying_the_model
+- [ ] 05_teardown
